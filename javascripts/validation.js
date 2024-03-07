@@ -1,8 +1,20 @@
+var bandera = 0;
 function emailValidation() {
     const form = document.getElementById('form');
-    form.addEventListener('submit', e => {
-      e.preventDefault();
+    const input =document.getElementById('email_confirm');
+    input.addEventListener('input', e => {
+      //e.preventDefault();
       if(form.email.value !== form.email_confirm.value) {
+        
+  
+        if (bandera != 0) {
+          var alerta = document.getElementById('Alerta');
+          alerta.remove();
+        }
+        
+        bandera++;
+        
+        //alerta.parentNode.removeChild(alerta);
         document.getElementById('email_confirm').style.backgroundColor = "rgba(230,169,171,.5)"
         
         var table = document.querySelector('.contact');
@@ -12,11 +24,11 @@ function emailValidation() {
         var cell1 = document.createElement('td');
         var parraf = document.createElement('p');
         parraf.setAttribute('for', 'newField');
-        parraf.textContent = 'Eメールが一致しません';
+        parraf.textContent = 'Email does not match';
         parraf.style.color = '#d14539';
         cell1.appendChild(parraf);
         cell1.setAttribute('colspan', '2');
-        newRow.className = "Alerta";
+        newRow.id = "Alerta";
         newRow.appendChild(cell1);
 
         var rows = table.getElementsByTagName('tr');
@@ -30,7 +42,11 @@ function emailValidation() {
         //  form.removeChild(element)
         //}, 3000)
       } else {
-        form.submit();
+        document.getElementById('email_confirm').style.backgroundColor = "white";
+          var alerta = document.getElementById('Alerta');
+          alerta.remove();
+        bandera = 0;
+        //form.submit();
       }
     });
   };
